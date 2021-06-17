@@ -1,21 +1,22 @@
 package com.prv.mmiretailassessment.ui.login
 
-import android.app.Activity
-import androidx.lifecycle.Observer
+import android.content.Intent
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import com.prv.mmiretail.ui.MainActivity
 import com.prv.mmiretailassessment.R
 import com.prv.mmiretailassessment.databinding.ActivityLoginBinding
-
+import com.prv.mmiretailassessment.utils.Status
 import com.prv.mmiretailassessment.viewmodels.LoginViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -33,8 +34,6 @@ class LoginActivity : AppCompatActivity() {
         val login = binding.login
         val loading = binding.loading
 
-        //loginViewModel = ViewModelProvider(this, LoginViewModelFactory()).get(LoginViewModel::class.java)
-
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
 
@@ -49,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
+        /*loginViewModel.loginResult.observe(this@LoginActivity, Observer {
             val loginResult = it ?: return@Observer
 
             loading.visibility = View.GONE
@@ -63,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
 
             //Complete and destroy login activity once successful
             finish()
-        })
+        })*/
 
         username.afterTextChanged {
             loginViewModel.loginDataChanged(
@@ -93,9 +92,37 @@ class LoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+                //loginViewModel.login(username.text.toString(), password.text.toString())
+                setupObservers(username.text.toString(), password.text.toString())
             }
         }
+    }
+
+    private fun setupObservers(username:String, password:String) {
+        loginViewModel.login(username, password).observe(this, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        binding.loading.visibility = View.GONE
+                        loginSuccess()
+                        //resource.data?.let { users -> retrieveList(users) }
+                    }
+                    Status.ERROR -> {
+                        binding.loading.visibility = View.GONE
+                        Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                    }
+                    Status.LOADING -> {
+                        binding.loading.visibility = View.VISIBLE
+                    }
+                }
+            }
+        })
+    }
+
+    private fun loginSuccess(){
+        this@LoginActivity.finish()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
@@ -107,10 +134,6 @@ class LoginActivity : AppCompatActivity() {
             "$welcome $displayName",
             Toast.LENGTH_LONG
         ).show()
-    }
-
-    private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
 }
 

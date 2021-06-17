@@ -1,48 +1,30 @@
 package com.prv.mmiretailassessment.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import android.util.Patterns
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
 import com.prv.mmiretailassessment.R
 import com.prv.mmiretailassessment.repository.LoginRepository
-import com.prv.mmiretailassessment.ui.data.Result
 
-import com.prv.mmiretailassessment.ui.login.LoggedInUserView
 import com.prv.mmiretailassessment.ui.login.LoginFormState
-import com.prv.mmiretailassessment.ui.login.LoginResult
 import com.prv.mmiretailassessment.utils.Resource
 import kotlinx.coroutines.Dispatchers
+import timber.log.Timber
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
-    private val _loginResult = MutableLiveData<LoginResult>()
-    val loginResult: LiveData<LoginResult> = _loginResult
-
     fun login(username: String, password: String) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
-            emit(Resource.success(data = loginRepository.login(username, password)))
+            val result = loginRepository.login(username, password)
+            emit(Resource.success(result))
         } catch (exception: Exception) {
+            Timber.e(exception)
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
         }
     }
-
-    /*fun login(username: String, password: String) {
-        // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password)
-
-        *//*if (result is Result.Success) {
-            _loginResult.value =
-                LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
-        } else {
-            _loginResult.value = LoginResult(error = R.string.login_failed)
-        }*//*
-    }*/
 
     fun loginDataChanged(username: String, password: String) {
         if (!isUserNameValid(username)) {

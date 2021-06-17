@@ -2,6 +2,7 @@ package com.prv.mmiretailassessment.repository
 
 import com.prv.mmiretailassessment.network.MMIRetailAPIInterface
 import com.prv.mmiretailassessment.models.LoggedInUser
+import com.prv.mmiretailassessment.models.UserLoginData
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -28,7 +29,7 @@ class LoginRepository( private val apiService: MMIRetailAPIInterface) {
         //apiService.logout()
     }
 
-    suspend fun login(username: String, password: String) = apiService.login()
+    suspend fun login(username: String, password: String) = apiService.login(UserLoginData(username, password))
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {
         this.user = loggedInUser

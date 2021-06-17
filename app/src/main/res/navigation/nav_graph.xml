@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/accountsListFragment">
+
+    <fragment
+        android:id="@+id/accountsListFragment"
+        android:name="com.prv.mmiretail.ui.AccountsListFragment"
+        android:label="@string/accounts_list"
+        tools:layout="@layout/fragment_accounts_list">
+        <action
+            android:id="@+id/action_accountsListFragment_to_accountsDetailsFragment"
+            app:destination="@id/accountsDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/depositWithdrawFragment"
+        android:name="com.prv.mmiretail.ui.DepositWithdrawFragment"
+        android:label="@string/deposit_withdraw"
+        tools:layout="@layout/fragment_deposit_withdraw"/>
+    <fragment
+        android:id="@+id/accountsDetailsFragment"
+        android:name="com.prv.mmiretail.ui.AccountsDetailsFragment"
+        android:label="@string/accounts_details"
+        tools:layout="@layout/fragment_accounts_details" >
+        <action
+            android:id="@+id/action_accountsDetailsFragment_to_depositWithdrawFragment"
+            app:destination="@id/depositWithdrawFragment" />
+    </fragment>
+</navigation>
