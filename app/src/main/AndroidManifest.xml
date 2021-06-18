@@ -21,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.prv.mmiretail.ui.MainActivity">
+        <activity android:name="com.prv.mmiretail.ui.MainActivity"
+            android:theme="@style/Theme.MMIRetailAssessment.NoActionBar">
         </activity>
     </application>
 

@@ -10,12 +10,17 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.prv.mmiretail.ui.MainActivity
 import com.prv.mmiretailassessment.R
 import com.prv.mmiretailassessment.databinding.ActivityLoginBinding
 import com.prv.mmiretailassessment.utils.Status
 import com.prv.mmiretailassessment.viewmodels.LoginViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class LoginActivity : AppCompatActivity() {
@@ -23,11 +28,15 @@ class LoginActivity : AppCompatActivity() {
     val loginViewModel: LoginViewModel by viewModel()
     private lateinit var binding: ActivityLoginBinding
 
+    private lateinit var auth: FirebaseAuth
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        auth = Firebase.auth
 
         val username = binding.username
         val password = binding.password
@@ -92,10 +101,41 @@ class LoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
+                authenticateUser(username.text.toString(), password.text.toString())
                 //loginViewModel.login(username.text.toString(), password.text.toString())
-                setupObservers(username.text.toString(), password.text.toString())
+                //setupObservers(username.text.toString(), password.text.toString())
             }
         }
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        if(currentUser != null){
+            //reload();
+        }
+    }
+
+    private fun authenticateUser(email: String, password: String){
+        binding.loading.visibility = View.VISIBLE
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Timber.d("signInWithEmail:success")
+                    binding.loading.visibility = View.GONE
+                    val user = auth.currentUser
+                    loginSuccess()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Timber.e( task.exception )
+                    Toast.makeText(baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+                    binding.loading.visibility = View.GONE
+                    //updateUI(null)
+                }
+            }
     }
 
     private fun setupObservers(username:String, password:String) {

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "215510732420",
+    "project_id": "demobank-1b6e8",
+    "storage_bucket": "demobank-1b6e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:215510732420:android:259044b078687ad7b13cd1",
+        "android_client_info": {
+          "package_name": "com.prv.mmiretailassessment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "215510732420-sv5o66l7qlsjk1d8besbt3iqk5dkho62.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1QABOhX8iB2VvzfJXRSkg5zaKHvDrook"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "215510732420-sv5o66l7qlsjk1d8besbt3iqk5dkho62.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
