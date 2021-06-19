@@ -18,14 +18,23 @@
         android:id="@+id/depositWithdrawFragment"
         android:name="com.prv.mmiretailassessment.ui.DepositWithdrawFragment"
         android:label="@string/deposit_withdraw"
-        tools:layout="@layout/fragment_deposit_withdraw"/>
+        tools:layout="@layout/fragment_deposit_withdraw">
+        <argument
+            android:name="deposit"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
     <fragment
         android:id="@+id/accountsDetailsFragment"
         android:name="com.prv.mmiretailassessment.ui.AccountsDetailsFragment"
         android:label="@string/accounts_details"
-        tools:layout="@layout/fragment_accounts_details" >
+        tools:layout="@layout/fragment_accounts_details">
         <action
             android:id="@+id/action_accountsDetailsFragment_to_depositWithdrawFragment"
             app:destination="@id/depositWithdrawFragment" />
+        <argument
+            android:name="accountNo"
+            app:argType="string"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

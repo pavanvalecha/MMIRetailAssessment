@@ -6,7 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.prv.mmiretailassessment.R
 import com.prv.mmiretailassessment.databinding.FragmentDepositWithdrawBinding
+import com.prv.mmiretailassessment.viewmodels.AccountsListViewModel
+import com.prv.mmiretailassessment.viewmodels.DepositWithdrawViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 /**
@@ -14,28 +19,36 @@ import com.prv.mmiretailassessment.databinding.FragmentDepositWithdrawBinding
  */
 class DepositWithdrawFragment : Fragment() {
 
-    private var _binding: FragmentDepositWithdrawBinding? = null
+    val depositWithdrawViewModel: DepositWithdrawViewModel by viewModel()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private var _binding: FragmentDepositWithdrawBinding? = null
     private val binding get() = _binding!!
+    private var depositMode = false
+    val args: DepositWithdrawFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentDepositWithdrawBinding.inflate(inflater, container, false)
+        depositMode = args.deposit
+        setupUI()
         return binding.root
+    }
 
+    private fun setupUI(){
+        if (depositMode) {
+            binding.buttonDeposit.setText(R.string.deposit_text)
+        } else {
+            binding.buttonDeposit.setText(R.string.withdraw_text)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        binding.buttonSecond.setOnClickListener {
-//            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-//        }
+        binding.buttonDeposit.setOnClickListener {
+            //depositWithdrawViewModel.depositAmount()
+        }
     }
 
     override fun onDestroyView() {

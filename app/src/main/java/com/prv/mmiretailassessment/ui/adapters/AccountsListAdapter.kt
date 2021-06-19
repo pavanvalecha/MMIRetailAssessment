@@ -4,10 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.prv.mmiretailassessment.R
 import com.prv.mmiretailassessment.databinding.ItemAccountsListBinding
 import com.prv.mmiretailassessment.models.AccountDetails
+import com.prv.mmiretailassessment.ui.AccountsListFragmentDirections
+import kotlinx.android.synthetic.main.item_accounts_list.view.*
 
 class AccountsListAdapter(var accountListMap: MutableMap<String, AccountDetails>): RecyclerView.Adapter<AccountsListAdapter.AccountsListViewHolder>(), AccountsListClickListener {
     class AccountsListViewHolder(var view: ItemAccountsListBinding): RecyclerView.ViewHolder(view.root)
@@ -20,9 +23,8 @@ class AccountsListAdapter(var accountListMap: MutableMap<String, AccountDetails>
     }
 
     override fun onBindViewHolder(holder: AccountsListViewHolder, position: Int) {
-        holder.view.accountNumberId.text = accountListMap.toString()
-        /*holder.view.accountDetails = accountListMap[position].toString()
-        holder.view.listener = this*/
+        holder.view.accountno = accountListMap.keys.elementAt(position)
+        holder.view.listener = this
     }
 
     override fun getItemCount() = accountListMap.size
@@ -34,10 +36,10 @@ class AccountsListAdapter(var accountListMap: MutableMap<String, AccountDetails>
     }
 
     override fun onAccountItemClicked(v: View) {
-        //val uuid = v.dogId.text.toString().toInt()
-        //val action = ListFragmentDirections.actionDetailFragment()
-        //action.dogUuid = uuid
-        //Navigation.findNavController(v).navigate(action)
+        val accountno = v.accountNumberId.text.toString()
+        val action = AccountsListFragmentDirections.actionAccountsListFragmentToAccountsDetailsFragment()
+        action.accountNo = accountno
+        Navigation.findNavController(v).navigate(action)
     }
 
 }

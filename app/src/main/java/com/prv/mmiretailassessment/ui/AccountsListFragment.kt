@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.prv.mmiretailassessment.R
 import com.prv.mmiretailassessment.databinding.FragmentAccountsListBinding
 import com.prv.mmiretailassessment.singletons.User
 import com.prv.mmiretailassessment.ui.adapters.AccountsListAdapter

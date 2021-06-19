@@ -17,4 +17,11 @@
     <string name="accounts_details">Account Details</string>
     <string name="deposit_withdraw">Deposit and Withdraw</string>
     <string name="new_account">New Account</string>
+
+    <string name="accounts_balance">Account Balance</string>
+    <string name="accounts_overdraft">Account Overdraft</string>
+    <string name="deposit_text">Deposit</string>
+    <string name="withdraw_text">Withdraw</string>
+    <string name="amount_text">Enter Amount</string>
+
 </resources>

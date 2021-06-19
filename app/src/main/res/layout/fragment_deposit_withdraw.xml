@@ -6,23 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".ui.DepositWithdrawFragment">
 
-    <TextView
-        android:id="@+id/textview_second"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/amount_edittext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/deposit_withdraw"
-        app:layout_constraintBottom_toTopOf="@id/button_second"
+        android:hint="@string/amount_text"
+        app:layout_constraintBottom_toTopOf="@id/button_deposit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_second"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_deposit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/previous"
+        android:text="@string/deposit_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_second" />
+        app:layout_constraintTop_toBottomOf="@id/amount_edittext" />
 </androidx.constraintlayout.widget.ConstraintLayout>
