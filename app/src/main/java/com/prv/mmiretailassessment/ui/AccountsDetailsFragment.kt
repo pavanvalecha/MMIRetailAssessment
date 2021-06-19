@@ -33,9 +33,9 @@ class AccountsDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonFirst.setOnClickListener {
+        /*binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_accountsDetailsFragment_to_depositWithdrawFragment)
-        }
+        }*/
     }
 
     override fun onDestroyView() {

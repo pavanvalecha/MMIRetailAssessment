@@ -1,8 +1,6 @@
 package com.prv.mmiretailassessment.repository
 
 import com.prv.mmiretailassessment.network.MMIRetailAPIInterface
-import com.prv.mmiretailassessment.models.LoggedInUser
-import com.prv.mmiretailassessment.models.UserLoginData
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -11,28 +9,14 @@ import com.prv.mmiretailassessment.models.UserLoginData
 
 class LoginRepository( private val apiService: MMIRetailAPIInterface) {
 
-    // in-memory cache of the loggedInUser object
-    var user: LoggedInUser? = null
-        private set
-
-    val isLoggedIn: Boolean
-        get() = user != null
-
-    init {
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
-        // @see https://developer.android.com/training/articles/keystore
-        user = null
-    }
-
     fun logout() {
-        user = null
         //apiService.logout()
     }
 
     //suspend fun login(username: String, password: String) = apiService.login(UserLoginData(username, password))
 
-    private fun setLoggedInUser(loggedInUser: LoggedInUser) {
-        this.user = loggedInUser
+    private fun setLoggedInUser(/*loggedInUser: LoggedInUser*/) {
+        //this.user = loggedInUser
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
     }
