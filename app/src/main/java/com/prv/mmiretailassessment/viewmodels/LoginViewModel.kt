@@ -15,7 +15,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
-    fun login(username: String, password: String) = liveData(Dispatchers.IO) {
+    /*fun login(username: String, password: String) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
             val result = loginRepository.login(username, password)
@@ -24,7 +24,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             Timber.e(exception)
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
         }
-    }
+    }*/
 
     fun loginDataChanged(username: String, password: String) {
         if (!isUserNameValid(username)) {

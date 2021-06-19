@@ -10,13 +10,17 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.google.firebase.FirebaseApp
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GetTokenResult
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.prv.mmiretail.ui.MainActivity
 import com.prv.mmiretailassessment.R
 import com.prv.mmiretailassessment.databinding.ActivityLoginBinding
+import com.prv.mmiretailassessment.network.RequestInterceptor
+import com.prv.mmiretailassessment.singletons.User
 import com.prv.mmiretailassessment.utils.Status
 import com.prv.mmiretailassessment.viewmodels.LoginViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -88,16 +92,15 @@ class LoginActivity : AppCompatActivity() {
                 )
             }
 
-            setOnEditorActionListener { _, actionId, _ ->
+            /*setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(
-                            username.text.toString(),
-                            password.text.toString()
-                        )
+
+                        loading.visibility = View.VISIBLE
+                    authenticateUser(username.text.toString(), password.text.toString())
                 }
                 false
-            }
+            }*/
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
@@ -126,7 +129,9 @@ class LoginActivity : AppCompatActivity() {
                     Timber.d("signInWithEmail:success")
                     binding.loading.visibility = View.GONE
                     val user = auth.currentUser
-                    loginSuccess()
+                    User.UserId = auth.uid.toString()
+                    fetchUserIDToken(user)
+
                 } else {
                     // If sign in fails, display a message to the user.
                     Timber.e( task.exception )
@@ -138,28 +143,24 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    private fun setupObservers(username:String, password:String) {
-        loginViewModel.login(username, password).observe(this, Observer {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        binding.loading.visibility = View.GONE
-                        loginSuccess()
-                        //resource.data?.let { users -> retrieveList(users) }
-                    }
-                    Status.ERROR -> {
-                        binding.loading.visibility = View.GONE
-                        Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
-                    }
-                    Status.LOADING -> {
-                        binding.loading.visibility = View.VISIBLE
-                    }
+    private fun fetchUserIDToken(user: FirebaseUser?){
+        user?.getIdToken(true)
+            ?.addOnCompleteListener(OnCompleteListener<GetTokenResult?> { task ->
+                if (task.isSuccessful) {
+                    val idToken: String = task.result!!.getToken()!!
+                    loginSuccess(idToken, user.uid)
+                    // Send token to your backend via HTTPS
+                    // ...
+                } else {
+                    // Handle error -> task.getException();
                 }
-            }
-        })
+            })
     }
 
-    private fun loginSuccess(){
+    private fun loginSuccess(idToken: String, userId: String){
+        Timber.tag("ID Token - ").d(idToken)
+        User.UserAuthToken = idToken
+
         this@LoginActivity.finish()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

@@ -1,15 +1,11 @@
 package com.prv.mmiretailassessment.network
 
-import com.prv.mmiretailassessment.models.LoggedInUser
-import com.prv.mmiretailassessment.models.User
-import com.prv.mmiretailassessment.models.UserLoginData
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import com.prv.mmiretailassessment.models.UserDetails
+import retrofit2.http.*
 
 interface MMIRetailAPIInterface {
 
-    @POST("signin")
-    suspend fun login(@Body userLogin: UserLoginData): LoggedInUser
+    @GET("Users/{UserID}.json")
+    suspend fun userDetails(@Path("UserID") userId: String, @Query("auth") authKey: String ): UserDetails
 
 }

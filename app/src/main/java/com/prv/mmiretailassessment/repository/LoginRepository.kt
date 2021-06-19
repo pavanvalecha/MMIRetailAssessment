@@ -29,7 +29,7 @@ class LoginRepository( private val apiService: MMIRetailAPIInterface) {
         //apiService.logout()
     }
 
-    suspend fun login(username: String, password: String) = apiService.login(UserLoginData(username, password))
+    //suspend fun login(username: String, password: String) = apiService.login(UserLoginData(username, password))
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {
         this.user = loggedInUser
