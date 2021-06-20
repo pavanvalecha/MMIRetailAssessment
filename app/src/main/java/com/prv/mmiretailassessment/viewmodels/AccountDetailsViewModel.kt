@@ -1,15 +1,15 @@
 package com.prv.mmiretailassessment.viewmodels
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.prv.mmiretailassessment.repository.AccountsDetailsRepository
-import com.prv.mmiretailassessment.repository.AccountsListRepository
-import com.prv.mmiretailassessment.singletons.User
-import com.prv.mmiretailassessment.utils.Resource
-import kotlinx.coroutines.Dispatchers
 import timber.log.Timber
+import androidx.lifecycle.liveData
+import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.Dispatchers
+import com.prv.mmiretailassessment.utils.Resource
+import com.prv.mmiretailassessment.singletons.User
+import com.prv.mmiretailassessment.repository.AccountsDetailsRepository
 
-class AccountDetailsViewModel(private val accountsDetailsRepository: AccountsDetailsRepository) : ViewModel() {
+class AccountDetailsViewModel(private val accountsDetailsRepository: AccountsDetailsRepository) :
+    ViewModel() {
 
     fun getAccountUpdates() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
@@ -30,7 +30,7 @@ class AccountDetailsViewModel(private val accountsDetailsRepository: AccountsDet
         return 0.0F
     }
 
-    fun getOverdraft(accountNo: Int) : Float {
+    fun getOverdraft(accountNo: Int): Float {
         val account = User.UserDetails.accounts.get(accountNo.toString())
         if (account != null) {
             return account.Overdraft

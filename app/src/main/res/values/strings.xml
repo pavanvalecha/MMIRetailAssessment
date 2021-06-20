@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MMIRetailAssessment</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">Login</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Log-In</string>
@@ -25,5 +25,7 @@
     <string name="amount_text">Enter Amount</string>
 
     <string name="menu_logout">Logout</string>
+
+    <string name="error_text">An error occurred while loading data!</string>
 
 </resources>

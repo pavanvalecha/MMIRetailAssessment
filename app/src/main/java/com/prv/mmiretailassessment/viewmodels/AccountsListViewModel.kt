@@ -1,14 +1,15 @@
 package com.prv.mmiretailassessment.viewmodels
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.prv.mmiretailassessment.repository.AccountsListRepository
-import com.prv.mmiretailassessment.singletons.User
-import com.prv.mmiretailassessment.utils.Resource
-import kotlinx.coroutines.Dispatchers
 import timber.log.Timber
+import androidx.lifecycle.liveData
+import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.Dispatchers
+import com.prv.mmiretailassessment.utils.Resource
+import com.prv.mmiretailassessment.singletons.User
+import com.prv.mmiretailassessment.repository.AccountsListRepository
 
-class AccountsListViewModel(private val accountsListRepository: AccountsListRepository) : ViewModel() {
+class AccountsListViewModel(private val accountsListRepository: AccountsListRepository) :
+    ViewModel() {
 
     fun listUsers() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))

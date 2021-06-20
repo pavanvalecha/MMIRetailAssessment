@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
         <variable
             name="accountno"
             type="String" />
+
         <variable
             name="listener"
             type="com.prv.mmiretailassessment.ui.adapters.AccountsListClickListener" />
     </data>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:orientation="horizontal"
-    android:onClick="@{listener::onAccountItemClicked}"
-    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_account_list_height"
+        android:onClick="@{listener::onAccountItemClicked}"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/accountNumberId"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:text="@{accountno}"
-        style="@style/Title"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/accountNumberId"
+            style="@style/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@{accountno}" />
 
-</LinearLayout>
+    </LinearLayout>
 </layout>

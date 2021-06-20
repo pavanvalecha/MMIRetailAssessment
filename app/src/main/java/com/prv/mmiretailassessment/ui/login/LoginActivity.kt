@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,12 +15,10 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GetTokenResult
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.prv.mmiretail.ui.MainActivity
+import com.prv.mmiretailassessment.ui.MainActivity
 import com.prv.mmiretailassessment.R
 import com.prv.mmiretailassessment.databinding.ActivityLoginBinding
-import com.prv.mmiretailassessment.network.RequestInterceptor
 import com.prv.mmiretailassessment.singletons.User
-import com.prv.mmiretailassessment.utils.Status
 import com.prv.mmiretailassessment.viewmodels.LoginViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber

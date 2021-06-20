@@ -1,24 +1,28 @@
 package com.prv.mmiretailassessment.ui.adapters
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.navigation.Navigation
-import androidx.recyclerview.widget.RecyclerView
+import android.view.LayoutInflater
 import com.prv.mmiretailassessment.R
-import com.prv.mmiretailassessment.databinding.ItemAccountsListBinding
-import com.prv.mmiretailassessment.models.AccountDetails
-import com.prv.mmiretailassessment.ui.AccountsListFragmentDirections
+import androidx.navigation.Navigation
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
+import com.prv.mmiretailassessment.models.AccountDetailsModel
 import kotlinx.android.synthetic.main.item_accounts_list.view.*
+import com.prv.mmiretailassessment.ui.AccountsListFragmentDirections
+import com.prv.mmiretailassessment.databinding.ItemAccountsListBinding
 
-class AccountsListAdapter(var accountListMap: MutableMap<String, AccountDetails>): RecyclerView.Adapter<AccountsListAdapter.AccountsListViewHolder>(), AccountsListClickListener {
-    class AccountsListViewHolder(var view: ItemAccountsListBinding): RecyclerView.ViewHolder(view.root)
+class AccountsListAdapter(var accountListMap: MutableMap<String, AccountDetailsModel>) :
+    RecyclerView.Adapter<AccountsListAdapter.AccountsListViewHolder>(), AccountsListClickListener {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountsListViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        //val view = inflater.inflate(R.layout.item_dog, parent, false)
-        val view = DataBindingUtil.inflate<ItemAccountsListBinding>(inflater, R.layout.item_accounts_list, parent, false)
+        val view = DataBindingUtil.inflate<ItemAccountsListBinding>(
+            inflater,
+            R.layout.item_accounts_list,
+            parent,
+            false
+        )
         return AccountsListViewHolder(view)
     }
 
@@ -29,7 +33,7 @@ class AccountsListAdapter(var accountListMap: MutableMap<String, AccountDetails>
 
     override fun getItemCount() = accountListMap.size
 
-    fun updateAccountsList(newAccountListMap: Map<String, AccountDetails>){
+    fun updateAccountsList(newAccountListMap: Map<String, AccountDetailsModel>) {
         accountListMap.clear()
         accountListMap.putAll(newAccountListMap)
         notifyDataSetChanged()
@@ -37,10 +41,15 @@ class AccountsListAdapter(var accountListMap: MutableMap<String, AccountDetails>
 
     override fun onAccountItemClicked(v: View) {
         val accountno = v.accountNumberId.text.toString().toInt()
-        val action = AccountsListFragmentDirections.actionAccountsListFragmentToAccountsDetailsFragment(accountno)
+        val action =
+            AccountsListFragmentDirections.actionAccountsListFragmentToAccountsDetailsFragment(
+                accountno
+            )
         Navigation.findNavController(v).navigate(action)
     }
 
+    class AccountsListViewHolder(var view: ItemAccountsListBinding) :
+        RecyclerView.ViewHolder(view.root)
 }
 
 interface AccountsListClickListener {

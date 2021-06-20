@@ -1,17 +1,16 @@
 package com.prv.mmiretailassessment.di
 
-import com.prv.mmiretailassessment.R
-import com.prv.mmiretailassessment.network.MMIRetailAPIInterface
-import com.prv.mmiretailassessment.network.RequestInterceptor
+import retrofit2.Retrofit
+import org.koin.dsl.module
 import okhttp3.OkHttpClient
+import com.prv.mmiretailassessment.R
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
-import org.koin.dsl.module
-import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import com.prv.mmiretailassessment.network.MMIRetailAPIInterface
 
 
-val networkModule = module{
+val networkModule = module {
 
     single {
         val interceptor = HttpLoggingInterceptor()
