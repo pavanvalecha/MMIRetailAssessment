@@ -10,6 +10,6 @@ import org.koin.dsl.module
 val viewModelModule = module{
     viewModel{ LoginViewModel( get() ) }
     viewModel{ AccountsListViewModel( get() ) }
-    viewModel{ AccountDetailsViewModel() }
+    viewModel{ AccountDetailsViewModel( get() ) }
     viewModel{ DepositWithdrawViewModel( get() ) }
 }

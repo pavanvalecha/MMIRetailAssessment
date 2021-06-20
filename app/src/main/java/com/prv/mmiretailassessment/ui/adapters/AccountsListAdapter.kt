@@ -36,9 +36,8 @@ class AccountsListAdapter(var accountListMap: MutableMap<String, AccountDetails>
     }
 
     override fun onAccountItemClicked(v: View) {
-        val accountno = v.accountNumberId.text.toString()
-        val action = AccountsListFragmentDirections.actionAccountsListFragmentToAccountsDetailsFragment()
-        action.accountNo = accountno
+        val accountno = v.accountNumberId.text.toString().toInt()
+        val action = AccountsListFragmentDirections.actionAccountsListFragmentToAccountsDetailsFragment(accountno)
         Navigation.findNavController(v).navigate(action)
     }
 

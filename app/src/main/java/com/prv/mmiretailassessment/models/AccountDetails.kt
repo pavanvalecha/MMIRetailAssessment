@@ -1,6 +1,6 @@
 package com.prv.mmiretailassessment.models
 
 data class AccountDetails(
-    val Bal: Int,
-    val Overdraft: Int,
+    val Bal: Float,
+    val Overdraft: Float,
 )

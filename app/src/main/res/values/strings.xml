@@ -3,7 +3,7 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in">Log-In</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
@@ -23,5 +23,7 @@
     <string name="deposit_text">Deposit</string>
     <string name="withdraw_text">Withdraw</string>
     <string name="amount_text">Enter Amount</string>
+
+    <string name="menu_logout">Logout</string>
 
 </resources>

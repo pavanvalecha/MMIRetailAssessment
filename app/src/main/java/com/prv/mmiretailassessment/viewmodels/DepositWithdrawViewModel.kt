@@ -2,18 +2,20 @@ package com.prv.mmiretailassessment.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.prv.mmiretailassessment.repository.AccountsListRepository
+import com.prv.mmiretailassessment.models.AccountBalUpdate
+import com.prv.mmiretailassessment.repository.DepositWithdrawRepository
 import com.prv.mmiretailassessment.singletons.User
 import com.prv.mmiretailassessment.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import timber.log.Timber
 
-class DepositWithdrawViewModel(private val accountsListRepository: AccountsListRepository) : ViewModel() {
+class DepositWithdrawViewModel(private val depositWithdrawRepository: DepositWithdrawRepository) : ViewModel() {
 
-    fun depositAmount(amount:Float) = liveData(Dispatchers.IO) {
+    fun depositAmount(accNo:Int, depositAmount:Float, existingAmount: Float) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
-            val result = accountsListRepository.userDetails(User.UserId)
+            val newAmt = existingAmount + depositAmount
+            val result = depositWithdrawRepository.updateBalance(User.UserId, accNo, AccountBalUpdate(newAmt))
             emit(Resource.success(result))
         } catch (exception: Exception) {
             Timber.e(exception)
@@ -21,10 +23,11 @@ class DepositWithdrawViewModel(private val accountsListRepository: AccountsListR
         }
     }
 
-    fun withdrawAmount(amount:Float) = liveData(Dispatchers.IO) {
+    fun withdrawAmount(accNo:Int, withdrawAmount:Float, existingAmount: Float) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
-            val result = accountsListRepository.userDetails(User.UserId)
+            val newAmt = existingAmount - withdrawAmount
+            val result = depositWithdrawRepository.updateBalance(User.UserId, accNo, AccountBalUpdate(newAmt))
             emit(Resource.success(result))
         } catch (exception: Exception) {
             Timber.e(exception)

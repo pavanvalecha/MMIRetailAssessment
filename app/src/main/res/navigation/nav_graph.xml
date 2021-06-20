@@ -23,6 +23,17 @@
             android:name="deposit"
             app:argType="boolean"
             android:defaultValue="false" />
+        <argument
+            android:name="accNo"
+            app:argType="integer" />
+        <argument
+            android:name="currentBal"
+            app:argType="float" />
+        <action
+            android:id="@+id/action_depositWithdrawFragment_to_accountsDetailsFragment"
+            app:destination="@id/accountsDetailsFragment"
+            app:popUpTo="@id/accountsDetailsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/accountsDetailsFragment"
@@ -34,7 +45,6 @@
             app:destination="@id/depositWithdrawFragment" />
         <argument
             android:name="accountNo"
-            app:argType="string"
-            android:defaultValue="0" />
+            app:argType="integer" />
     </fragment>
 </navigation>
