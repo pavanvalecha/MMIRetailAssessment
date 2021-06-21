@@ -1,4 +1,4 @@
-package com.prv.mmiretailassessment.ui
+package com.prv.mmiretailassessment.ui.accountList
 
 import timber.log.Timber
 import android.os.Bundle
@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import androidx.lifecycle.Observer
+import com.prv.mmiretailassessment.R
 import androidx.fragment.app.Fragment
 import com.prv.mmiretailassessment.utils.Status
 import com.prv.mmiretailassessment.singletons.User
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import com.prv.mmiretailassessment.ui.adapters.AccountsListAdapter
-import com.prv.mmiretailassessment.viewmodels.AccountsListViewModel
+import com.prv.mmiretailassessment.viewModels.AccountsListViewModel
 import com.prv.mmiretailassessment.databinding.FragmentAccountsListBinding
 
 class AccountsListFragment : Fragment() {
@@ -38,6 +38,10 @@ class AccountsListFragment : Fragment() {
         _binding = null
     }
 
+    private fun setWelcomeMsg(firstName: String, lastName:String){
+        binding.headerView.text = String.format(resources.getString(R.string.welcome_text), firstName, lastName)
+    }
+
     private fun populateAccountList() {
         accountListAdapter = AccountsListAdapter(User.UserDetails.accounts.toMutableMap())
         binding.accountsList.visibility = View.VISIBLE
@@ -55,6 +59,7 @@ class AccountsListFragment : Fragment() {
                         Timber.d(resource.toString())
                         if (resource.data != null) {
                             User.UserDetails = resource.data
+                            setWelcomeMsg(User.UserDetails.Name, User.UserDetails.LastName)
                             populateAccountList()
                         }
                         binding.progressBar.visibility = View.GONE

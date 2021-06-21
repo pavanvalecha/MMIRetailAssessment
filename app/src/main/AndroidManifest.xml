@@ -11,8 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MMIRetailAssessment"
-        android:usesCleartextTraffic="true">
+        android:theme="@style/Theme.MMIRetailAssessment">
         <activity
             android:name="com.prv.mmiretailassessment.ui.login.LoginActivity"
             android:label="@string/title_activity_login">
@@ -23,7 +22,7 @@
         </activity>
         <activity
             android:name=".ui.MainActivity"
-            android:theme="@style/Theme.MMIRetailAssessment.NoActionBar"></activity>
+            android:theme="@style/Theme.MMIRetailAssessment.NoActionBar"/>
     </application>
 
 </manifest>

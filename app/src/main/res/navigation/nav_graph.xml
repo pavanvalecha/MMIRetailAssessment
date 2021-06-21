@@ -7,16 +7,19 @@
 
     <fragment
         android:id="@+id/accountsListFragment"
-        android:name="com.prv.mmiretailassessment.ui.AccountsListFragment"
+        android:name="com.prv.mmiretailassessment.ui.accountList.AccountsListFragment"
         android:label="@string/accounts_list"
         tools:layout="@layout/fragment_accounts_list">
         <action
             android:id="@+id/action_accountsListFragment_to_accountsDetailsFragment"
             app:destination="@id/accountsDetailsFragment" />
+        <action
+            android:id="@+id/action_accountsListFragment_to_depositWithdrawFragment"
+            app:destination="@id/depositWithdrawFragment" />
     </fragment>
     <fragment
         android:id="@+id/depositWithdrawFragment"
-        android:name="com.prv.mmiretailassessment.ui.DepositWithdrawFragment"
+        android:name="com.prv.mmiretailassessment.ui.depositWithdraw.DepositWithdrawFragment"
         android:label="@string/deposit_withdraw"
         tools:layout="@layout/fragment_deposit_withdraw">
         <argument
@@ -34,10 +37,19 @@
             app:destination="@id/accountsDetailsFragment"
             app:popUpTo="@id/accountsDetailsFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_depositWithdrawFragment_to_accountsListFragment"
+            app:destination="@id/accountsListFragment"
+            app:popUpTo="@id/accountsListFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="fromListPage"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/accountsDetailsFragment"
-        android:name="com.prv.mmiretailassessment.ui.AccountsDetailsFragment"
+        android:name="com.prv.mmiretailassessment.ui.accountDetails.AccountsDetailsFragment"
         android:label="@string/accounts_details"
         tools:layout="@layout/fragment_accounts_details">
         <action

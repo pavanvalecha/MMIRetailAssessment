@@ -28,4 +28,7 @@
 
     <string name="error_text">An error occurred while loading data!</string>
 
+    <string name="acc_no_text">Balance - %s</string>
+    <string name="welcome_text">Welcome, %s %s!</string>
+
 </resources>

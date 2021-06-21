@@ -8,4 +8,9 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="PageHeader">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

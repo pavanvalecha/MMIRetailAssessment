@@ -1,4 +1,4 @@
-package com.prv.mmiretailassessment.viewmodels
+package com.prv.mmiretailassessment.viewModels
 
 import timber.log.Timber
 import androidx.lifecycle.liveData

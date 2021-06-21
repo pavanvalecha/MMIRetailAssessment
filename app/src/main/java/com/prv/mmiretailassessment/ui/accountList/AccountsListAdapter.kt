@@ -1,4 +1,4 @@
-package com.prv.mmiretailassessment.ui.adapters
+package com.prv.mmiretailassessment.ui.accountList
 
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.prv.mmiretailassessment.models.AccountDetailsModel
 import kotlinx.android.synthetic.main.item_accounts_list.view.*
-import com.prv.mmiretailassessment.ui.AccountsListFragmentDirections
 import com.prv.mmiretailassessment.databinding.ItemAccountsListBinding
 
 class AccountsListAdapter(var accountListMap: MutableMap<String, AccountDetailsModel>) :
@@ -27,8 +26,38 @@ class AccountsListAdapter(var accountListMap: MutableMap<String, AccountDetailsM
     }
 
     override fun onBindViewHolder(holder: AccountsListViewHolder, position: Int) {
-        holder.view.accountno = accountListMap.keys.elementAt(position)
+        val account = accountListMap.keys.elementAt(position)
+        holder.view.accountno =  account
+        holder.view.balance = accountListMap.get(account)?.Bal.toString()
         holder.view.listener = this
+        holder.view.depositButton.setOnClickListener(){
+            val action =
+                accountListMap.get(account)?.Bal?.let { it1 ->
+                    AccountsListFragmentDirections.actionAccountsListFragmentToDepositWithdrawFragment(
+                        account.toInt(),
+                        it1
+                    )
+                }
+            if (action != null) {
+                action.deposit = true
+                action.fromListPage = true
+                Navigation.findNavController(it).navigate(action)
+            }
+        }
+        holder.view.withdrawButton.setOnClickListener(){
+            val action =
+                accountListMap.get(account)?.Bal?.let { it1 ->
+                    AccountsListFragmentDirections.actionAccountsListFragmentToDepositWithdrawFragment(
+                        account.toInt(),
+                        it1
+                    )
+                }
+            if (action != null) {
+                action.deposit = false
+                action.fromListPage = true
+                Navigation.findNavController(it).navigate(action)
+            }
+        }
     }
 
     override fun getItemCount() = accountListMap.size
@@ -42,9 +71,7 @@ class AccountsListAdapter(var accountListMap: MutableMap<String, AccountDetailsM
     override fun onAccountItemClicked(v: View) {
         val accountno = v.accountNumberId.text.toString().toInt()
         val action =
-            AccountsListFragmentDirections.actionAccountsListFragmentToAccountsDetailsFragment(
-                accountno
-            )
+            AccountsListFragmentDirections.actionAccountsListFragmentToAccountsDetailsFragment(accountno)
         Navigation.findNavController(v).navigate(action)
     }
 

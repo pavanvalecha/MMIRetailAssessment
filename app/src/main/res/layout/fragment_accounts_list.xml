@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.AccountsListFragment">
+    tools:context=".ui.accountList.AccountsListFragment">
 
     <data>
         <variable
@@ -10,12 +10,26 @@
             type="com.prv.mmiretailassessment.models.AccountDetailsModel" />
         <variable
             name="listener"
-            type="com.prv.mmiretailassessment.ui.adapters.AccountsListClickListener" />
+            type="com.prv.mmiretailassessment.ui.accountList.AccountsListClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/headerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/PageHeader"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="@dimen/header_view_margin_end"
+            android:layout_marginEnd="@dimen/header_view_margin_end"
+            android:layout_marginLeft="@dimen/header_view_margin_start"
+            android:layout_marginStart="@dimen/header_view_margin_start" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/accountsList"
@@ -24,7 +38,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/headerView"
+            android:layout_marginRight="@dimen/list_view_margin_end"
+            android:layout_marginEnd="@dimen/list_view_margin_end"
+            android:layout_marginLeft="@dimen/list_view_margin_start"
+            android:layout_marginStart="@dimen/list_view_margin_start" />
 
         <TextView
             android:id="@+id/listError"

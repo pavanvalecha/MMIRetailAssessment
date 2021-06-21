@@ -15,6 +15,12 @@
     <dimen name="username_edtxt_margin_end">24dp</dimen>
     <dimen name="username_edtxt_margin_start">24dp</dimen>
 
+    <dimen name="list_view_margin_start">15dp</dimen>
+    <dimen name="list_view_margin_end">15dp</dimen>
+
+    <dimen name="header_view_margin_start">15dp</dimen>
+    <dimen name="header_view_margin_end">15dp</dimen>
+
     <dimen name="password_edtxt_margin_top">8dp</dimen>
     <dimen name="password_edtxt_margin_end">24dp</dimen>
     <dimen name="password_edtxt_margin_start">24dp</dimen>

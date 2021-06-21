@@ -1,4 +1,4 @@
-package com.prv.mmiretailassessment.ui
+package com.prv.mmiretailassessment.ui.accountDetails
 
 import timber.log.Timber
 import android.os.Bundle
@@ -12,7 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.prv.mmiretailassessment.utils.Status
 import com.prv.mmiretailassessment.singletons.User
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import com.prv.mmiretailassessment.viewmodels.AccountDetailsViewModel
+import com.prv.mmiretailassessment.viewModels.AccountDetailsViewModel
 import com.prv.mmiretailassessment.databinding.FragmentAccountsDetailsBinding
 
 
@@ -55,12 +55,20 @@ class AccountsDetailsFragment : Fragment() {
         binding.textviewOverdraft.text =  overdraft.toString()
 
         binding.buttonDeposit.setOnClickListener {
-            val action = AccountsDetailsFragmentDirections.actionAccountsDetailsFragmentToDepositWithdrawFragment(accountNoVal, currentBal)
+            val action =
+                AccountsDetailsFragmentDirections.actionAccountsDetailsFragmentToDepositWithdrawFragment(
+                    accountNoVal,
+                    currentBal
+                )
             action.deposit = true
             Navigation.findNavController(it).navigate(action)
         }
         binding.buttonWithdraw.setOnClickListener {
-            val action = AccountsDetailsFragmentDirections.actionAccountsDetailsFragmentToDepositWithdrawFragment(accountNoVal, currentBal)
+            val action =
+                AccountsDetailsFragmentDirections.actionAccountsDetailsFragmentToDepositWithdrawFragment(
+                    accountNoVal,
+                    currentBal
+                )
             action.deposit = false
             Navigation.findNavController(it).navigate(action)
         }

@@ -1,4 +1,4 @@
-package com.prv.mmiretailassessment.ui
+package com.prv.mmiretailassessment.ui.depositWithdraw
 
 import android.os.Bundle
 import timber.log.Timber
@@ -12,7 +12,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.prv.mmiretailassessment.utils.Status
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import com.prv.mmiretailassessment.viewmodels.DepositWithdrawViewModel
+import com.prv.mmiretailassessment.viewModels.DepositWithdrawViewModel
 import com.prv.mmiretailassessment.databinding.FragmentDepositWithdrawBinding
 
 
@@ -24,6 +24,7 @@ class DepositWithdrawFragment : Fragment() {
     private val binding get() = _binding!!
     val args: DepositWithdrawFragmentArgs by navArgs()
 
+    private var fromListPage = false
     private var depositMode = false
     private var currentBal: Float = 0.0F
     private var accNo: Int = 0
@@ -33,6 +34,7 @@ class DepositWithdrawFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDepositWithdrawBinding.inflate(inflater, container, false)
+        fromListPage = args.fromListPage
         depositMode = args.deposit
         currentBal = args.currentBal
         accNo = args.accNo
@@ -109,11 +111,17 @@ class DepositWithdrawFragment : Fragment() {
     }
 
     private fun popToAccountDetailsPage() {
-        val action =
-            DepositWithdrawFragmentDirections.actionDepositWithdrawFragmentToAccountsDetailsFragment(
-                accNo
-            )
-        Navigation.findNavController(binding.buttonDeposit).navigate(action)
+        if (fromListPage) {
+            val action =
+                DepositWithdrawFragmentDirections.actionDepositWithdrawFragmentToAccountsListFragment()
+            Navigation.findNavController(binding.buttonDeposit).navigate(action)
+        } else {
+            val action =
+                DepositWithdrawFragmentDirections.actionDepositWithdrawFragmentToAccountsDetailsFragment(
+                    accNo
+                )
+            Navigation.findNavController(binding.buttonDeposit).navigate(action)
+        }
     }
 
 

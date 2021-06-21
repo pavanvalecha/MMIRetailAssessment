@@ -1,36 +1,35 @@
 package com.prv.mmiretailassessment.ui.login
 
-import android.content.Intent
-import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.View
-import android.widget.EditText
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GetTokenResult
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.prv.mmiretailassessment.ui.MainActivity
-import com.prv.mmiretailassessment.R
-import com.prv.mmiretailassessment.databinding.ActivityLoginBinding
-import com.prv.mmiretailassessment.singletons.User
-import com.prv.mmiretailassessment.viewmodels.LoginViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import android.text.Editable
+import android.content.Intent
+import android.widget.EditText
+import android.text.TextWatcher
+import androidx.lifecycle.Observer
+import com.prv.mmiretailassessment.R
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GetTokenResult
+import androidx.appcompat.app.AppCompatActivity
+import com.prv.mmiretailassessment.ui.MainActivity
+import com.prv.mmiretailassessment.singletons.User
+import com.google.android.gms.tasks.OnCompleteListener
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.prv.mmiretailassessment.viewModels.LoginViewModel
+import com.prv.mmiretailassessment.databinding.ActivityLoginBinding
 
 
 class LoginActivity : AppCompatActivity() {
 
-    val loginViewModel: LoginViewModel by viewModel()
+    private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityLoginBinding
 
-    private lateinit var auth: FirebaseAuth
-
+    private val loginViewModel: LoginViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,10 +45,7 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
-
-            // disable login button unless both username / password is valid
             login.isEnabled = loginState.isDataValid
-
             if (loginState.usernameError != null) {
                 username.error = getString(loginState.usernameError)
             }
@@ -57,22 +53,6 @@ class LoginActivity : AppCompatActivity() {
                 password.error = getString(loginState.passwordError)
             }
         })
-
-        /*loginViewModel.loginResult.observe(this@LoginActivity, Observer {
-            val loginResult = it ?: return@Observer
-
-            loading.visibility = View.GONE
-            if (loginResult.error != null) {
-                showLoginFailed(loginResult.error)
-            }
-            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
-            }
-            setResult(Activity.RESULT_OK)
-
-            //Complete and destroy login activity once successful
-            finish()
-        })*/
 
         username.afterTextChanged {
             loginViewModel.loginDataChanged(
@@ -89,89 +69,57 @@ class LoginActivity : AppCompatActivity() {
                 )
             }
 
-            /*setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE ->
-
-                        loading.visibility = View.VISIBLE
-                    authenticateUser(username.text.toString(), password.text.toString())
-                }
-                false
-            }*/
-
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
                 authenticateUser(username.text.toString(), password.text.toString())
-                //loginViewModel.login(username.text.toString(), password.text.toString())
-                //setupObservers(username.text.toString(), password.text.toString())
             }
         }
     }
 
     public override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
-        if(currentUser != null){
-            //reload();
-        }
     }
 
-    private fun authenticateUser(email: String, password: String){
+    private fun authenticateUser(email: String, password: String) {
         binding.loading.visibility = View.VISIBLE
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
                     Timber.d("signInWithEmail:success")
                     binding.loading.visibility = View.GONE
                     val user = auth.currentUser
                     User.UserId = auth.uid.toString()
                     fetchUserIDToken(user)
-
                 } else {
-                    // If sign in fails, display a message to the user.
-                    Timber.e( task.exception )
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    Timber.e(task.exception)
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     binding.loading.visibility = View.GONE
-                    //updateUI(null)
                 }
             }
     }
 
-    private fun fetchUserIDToken(user: FirebaseUser?){
+    private fun fetchUserIDToken(user: FirebaseUser?) {
         user?.getIdToken(true)
             ?.addOnCompleteListener(OnCompleteListener<GetTokenResult?> { task ->
                 if (task.isSuccessful) {
                     val idToken: String = task.result!!.getToken()!!
                     loginSuccess(idToken, user.uid)
-                    // Send token to your backend via HTTPS
-                    // ...
                 } else {
-                    // Handle error -> task.getException();
                 }
             })
     }
 
-    private fun loginSuccess(idToken: String, userId: String){
+    private fun loginSuccess(idToken: String, userId: String) {
         Timber.tag("ID Token - ").d(idToken)
         User.UserAuthToken = idToken
 
         this@LoginActivity.finish()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-    }
-
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
-        // TODO : initiate successful logged in experience
-        Toast.makeText(
-            applicationContext,
-            "$welcome $displayName",
-            Toast.LENGTH_LONG
-        ).show()
     }
 }
 
