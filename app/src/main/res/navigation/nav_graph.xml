@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/accountsListFragment"
-        android:name="com.prv.mmiretailassessment.ui.accountList.AccountsListFragment"
+        android:name="com.mmi.retailassessment.ui.accountList.AccountsListFragment"
         android:label="@string/accounts_list"
         tools:layout="@layout/fragment_accounts_list">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/depositWithdrawFragment"
-        android:name="com.prv.mmiretailassessment.ui.depositWithdraw.DepositWithdrawFragment"
+        android:name="com.mmi.retailassessment.ui.depositWithdraw.DepositWithdrawFragment"
         android:label="@string/deposit_withdraw"
         tools:layout="@layout/fragment_deposit_withdraw">
         <argument
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/accountsDetailsFragment"
-        android:name="com.prv.mmiretailassessment.ui.accountDetails.AccountsDetailsFragment"
+        android:name="com.mmi.retailassessment.ui.accountDetails.AccountsDetailsFragment"
         android:label="@string/accounts_details"
         tools:layout="@layout/fragment_accounts_details">
         <action

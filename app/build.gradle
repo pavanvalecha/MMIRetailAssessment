@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'androidx.navigation.safeargs'
     id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -10,7 +11,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.prv.mmiretailassessment"
+        applicationId "com.mmi.retailassessment"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1

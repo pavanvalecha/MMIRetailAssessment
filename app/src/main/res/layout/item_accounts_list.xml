@@ -12,7 +12,7 @@
 
         <variable
             name="listener"
-            type="com.prv.mmiretailassessment.ui.accountList.AccountsListClickListener" />
+            type="com.mmi.retailassessment.ui.accountList.AccountsListClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

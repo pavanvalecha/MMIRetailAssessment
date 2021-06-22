@@ -7,10 +7,10 @@
     <data>
         <variable
             name="accountDetails"
-            type="com.prv.mmiretailassessment.models.AccountDetailsModel" />
+            type="com.mmi.retailassessment.models.AccountDetailsModel" />
         <variable
             name="listener"
-            type="com.prv.mmiretailassessment.ui.accountList.AccountsListClickListener" />
+            type="com.mmi.retailassessment.ui.accountList.AccountsListClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

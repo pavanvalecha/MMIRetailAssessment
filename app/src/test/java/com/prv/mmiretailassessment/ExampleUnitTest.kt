@@ -1,4 +1,4 @@
-package com.prv.mmiretailassessment
+package com.mmi.retailassessment
 
 import org.junit.Test
 
