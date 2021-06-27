@@ -10,6 +10,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import com.mmi.retailassessment.network.MMIRetailAPIInterface
 
 
+/**
+ * @summary KOIN Module for injecting Network components
+ */
 val networkModule = module {
 
     single {

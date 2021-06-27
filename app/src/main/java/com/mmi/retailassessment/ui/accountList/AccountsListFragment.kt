@@ -38,10 +38,17 @@ class AccountsListFragment : Fragment() {
         _binding = null
     }
 
+    /**
+     * @summary method for setting up Welcome Text on headerView
+     * @param string - first name of user, string - last name of user
+     */
     private fun setWelcomeMsg(firstName: String, lastName:String){
         binding.headerView.text = String.format(resources.getString(R.string.welcome_text), firstName, lastName)
     }
 
+    /**
+     * @summary setup list adapter and apply the adapter to list
+     */
     private fun populateAccountList() {
         accountListAdapter = AccountsListAdapter(User.UserDetails.accounts.toMutableMap())
         binding.accountsList.visibility = View.VISIBLE
@@ -51,6 +58,9 @@ class AccountsListFragment : Fragment() {
         }
     }
 
+    /**
+     * @summary method to setup observers for updating UI State as per data changes
+     */
     private fun setupObservers() {
         accountsListViewModel.listUsers().observe(viewLifecycleOwner, Observer {
             it?.let { resource ->

@@ -80,6 +80,10 @@ class LoginActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
     }
 
+    /**
+     * @summary method for calling Firebase Authentication for user login
+     * @param string - email, string - password
+     */
     private fun authenticateUser(email: String, password: String) {
         binding.loading.visibility = View.VISIBLE
         auth.signInWithEmailAndPassword(email, password)
@@ -101,6 +105,10 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
+    /**
+     * @summary method for fetching token from FirebaseUser of Firebase Authentication
+     * @param FirebaseUser - obtained from firebase authentication success
+     */
     private fun fetchUserIDToken(user: FirebaseUser?) {
         user?.getIdToken(true)
             ?.addOnCompleteListener(OnCompleteListener<GetTokenResult?> { task ->
@@ -112,6 +120,10 @@ class LoginActivity : AppCompatActivity() {
             })
     }
 
+    /**
+     * @summary method to finish LoginActivity and move to next MainActivity on Login Success
+     * @param string - idToken, string userId
+     */
     private fun loginSuccess(idToken: String, userId: String) {
         Timber.tag("ID Token - ").d(idToken)
         User.UserAuthToken = idToken

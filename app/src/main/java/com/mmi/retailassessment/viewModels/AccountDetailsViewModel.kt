@@ -11,6 +11,10 @@ import com.mmi.retailassessment.repository.AccountsDetailsRepository
 class AccountDetailsViewModel(private val accountsDetailsRepository: AccountsDetailsRepository) :
     ViewModel() {
 
+    /**
+     * @summary Fetch updated Balance values from User Account running on Coroutines
+     * @returns livedata - Map<String, AccountDetailsModel>
+     */
     fun getAccountUpdates() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
@@ -22,6 +26,11 @@ class AccountDetailsViewModel(private val accountsDetailsRepository: AccountsDet
         }
     }
 
+    /**
+     * @summary method to get balance value from account
+     * @param Int - account number
+     * @returns  Float - account balance
+     */
     fun getBalance(accountNo: Int): Float {
         val account = User.UserDetails.accounts.get(accountNo.toString())
         if (account != null) {
@@ -30,6 +39,11 @@ class AccountDetailsViewModel(private val accountsDetailsRepository: AccountsDet
         return 0.0F
     }
 
+    /**
+     * @summary method to get overdraft value from account
+     * @param Int - account number
+     * @returns  Flaot - account balance
+     */
     fun getOverdraft(accountNo: Int): Float {
         val account = User.UserDetails.accounts.get(accountNo.toString())
         if (account != null) {

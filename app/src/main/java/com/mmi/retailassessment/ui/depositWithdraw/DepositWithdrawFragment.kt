@@ -18,7 +18,7 @@ import com.mmi.retailassessment.databinding.FragmentDepositWithdrawBinding
 
 class DepositWithdrawFragment : Fragment() {
 
-    val depositWithdrawViewModel: DepositWithdrawViewModel by viewModel()
+    private val depositWithdrawViewModel: DepositWithdrawViewModel by viewModel()
 
     private var _binding: FragmentDepositWithdrawBinding? = null
     private val binding get() = _binding!!
@@ -42,6 +42,9 @@ class DepositWithdrawFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * @summary class method to setup UI depending on deposit or withdraw mode
+     */
     private fun setupUI() {
         if (depositMode) {
             binding.buttonDeposit.setText(R.string.deposit_text)
@@ -57,6 +60,9 @@ class DepositWithdrawFragment : Fragment() {
         }
     }
 
+    /**
+     * @summary method to set values to amount Edit text and create observers depending on deposit or withdraw mode
+     */
     private fun updateBalance() {
         val changeAmt = binding.amountEdittext.text.toString().toFloat()
         if (depositMode) {
@@ -66,6 +72,10 @@ class DepositWithdrawFragment : Fragment() {
         }
     }
 
+    /**
+     * @summary method to setup observers for deposit action updating UI State as per data changes
+     * @param Int - account Number, Float - difference amount, Float - current balance
+     */
     private fun depositObservers(accNo: Int, changeAmt: Float, currentBal: Float) {
         depositWithdrawViewModel.depositAmount(accNo, changeAmt, currentBal)
             .observe(viewLifecycleOwner, Observer {
@@ -88,6 +98,10 @@ class DepositWithdrawFragment : Fragment() {
             })
     }
 
+    /**
+     * @summary method to setup observers for withdraw action updating UI State as per data changes
+     * @param Int - account Number, Float - difference amount, Float - current balance
+     */
     private fun withdrawObservers(accNo: Int, changeAmt: Float, currentBal: Float) {
         depositWithdrawViewModel.withdrawAmount(accNo, changeAmt, currentBal)
             .observe(viewLifecycleOwner, Observer {
@@ -110,6 +124,9 @@ class DepositWithdrawFragment : Fragment() {
             })
     }
 
+    /**
+     * @summary method to navigate back to initiation fragments depending on from where it started
+     */
     private fun popToAccountDetailsPage() {
         if (fromListPage) {
             val action =

@@ -7,7 +7,9 @@ import com.mmi.retailassessment.viewModels.AccountsListViewModel
 import com.mmi.retailassessment.viewModels.AccountDetailsViewModel
 import com.mmi.retailassessment.viewModels.DepositWithdrawViewModel
 
-
+/**
+ * @summary KOIN Module for injecting ViewModels
+ */
 val viewModelModule = module {
     viewModel { LoginViewModel() }
     viewModel { AccountsListViewModel(get()) }

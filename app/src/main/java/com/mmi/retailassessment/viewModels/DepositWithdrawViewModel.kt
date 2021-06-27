@@ -12,6 +12,11 @@ import com.mmi.retailassessment.repository.DepositWithdrawRepository
 class DepositWithdrawViewModel(private val depositWithdrawRepository: DepositWithdrawRepository) :
     ViewModel() {
 
+    /**
+     * @summary coroutine method for deposit amount to user account
+     * @param Int - account number, Float - deposit amount, Float - existing amount
+     * @returns livedata - AccountDetailsModel
+     */
     fun depositAmount(accNo: Int, depositAmount: Float, existingAmount: Float) =
         liveData(Dispatchers.IO) {
             emit(Resource.loading(data = null))
@@ -29,6 +34,11 @@ class DepositWithdrawViewModel(private val depositWithdrawRepository: DepositWit
             }
         }
 
+    /**
+     * @summary coroutine method for withdraw amount from user account
+     * @param Int - account number, Float - deposit amount, Float - existing amount
+     * @returns livedata - AccountDetailsModel
+     */
     fun withdrawAmount(accNo: Int, withdrawAmount: Float, existingAmount: Float) =
         liveData(Dispatchers.IO) {
             emit(Resource.loading(data = null))

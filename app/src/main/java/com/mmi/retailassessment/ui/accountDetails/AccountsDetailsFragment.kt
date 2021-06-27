@@ -47,6 +47,9 @@ class AccountsDetailsFragment : Fragment() {
         updateAccountObservers()
     }
 
+    /**
+     * @summary fragment method to update the values on UI
+     */
     private fun updateValues(){
         val currentBal = accountsDetailsViewModel.getBalance(accountNoVal)
         val overdraft = accountsDetailsViewModel.getOverdraft(accountNoVal)
@@ -74,6 +77,9 @@ class AccountsDetailsFragment : Fragment() {
         }
     }
 
+    /**
+     * @summary method to setup observers for updating UI State as per data changes
+     */
     private fun updateAccountObservers() {
         accountsDetailsViewModel.getAccountUpdates().observe(viewLifecycleOwner, Observer {
                 it?.let { resource ->

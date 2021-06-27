@@ -62,6 +62,10 @@ class AccountsListAdapter(var accountListMap: MutableMap<String, AccountDetailsM
 
     override fun getItemCount() = accountListMap.size
 
+    /**
+     * @summary method for updating list with new Data
+     * @param Map<String, AccountDetailsModel> - map with new data
+     */
     fun updateAccountsList(newAccountListMap: Map<String, AccountDetailsModel>) {
         accountListMap.clear()
         accountListMap.putAll(newAccountListMap)

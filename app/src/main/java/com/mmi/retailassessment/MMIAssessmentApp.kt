@@ -10,6 +10,7 @@ import com.mmi.retailassessment.di.viewModelModule
 import com.mmi.retailassessment.di.repositoryModule
 
 class MMIAssessmentApp : Application() {
+
     override fun onCreate() {
         super.onCreate()
         initKoin()
@@ -19,10 +20,14 @@ class MMIAssessmentApp : Application() {
         }
     }
 
+    /**
+     * @summary KOIN (Dependency Injection) framework initialization method
+     */
     private fun initKoin() {
         startKoin {
             androidContext(this@MMIAssessmentApp)
             modules(networkModule, viewModelModule, repositoryModule)
         }
     }
+
 }
